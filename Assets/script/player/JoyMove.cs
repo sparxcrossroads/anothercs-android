@@ -5,9 +5,10 @@ public class JoyMove : MonoBehaviour {
 
 	// Use this for initialization
 
-    private Animator m_ani;
+    public Animator m_ani;
     private CharacterController m_ch;
-    private AnimatorStateInfo stateinfo;
+    public AnimatorStateInfo stateinfo;
+    private m4_fire _m4_fire;
 
     private float gravity = 8.0f;
     private float moveSpeed = 3.0f;
@@ -17,19 +18,24 @@ public class JoyMove : MonoBehaviour {
     private Vector3 moveGravity;
 
     private bool inJump = false;
-    private bool inFire = false;
+    public bool inFire = false;
+
+
+    private float m_time=0;
 
     void Start()
     {
         m_ani = GetComponent<Animator>();
         m_ch = GetComponent<CharacterController>();
+        _m4_fire = GameObject.FindGameObjectWithTag("m4_fire").GetComponent<m4_fire>();
 
     }
     void Update()
     {
         // get aniamtor.stateinfo 
         stateinfo = m_ani.GetCurrentAnimatorStateInfo(0);
-
+        if(inFire)
+            m_time += Time.deltaTime;
         //gravity
         if (!m_ch.isGrounded)
         {
@@ -71,6 +77,13 @@ public class JoyMove : MonoBehaviour {
         //idlefire
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.idlefire") && !m_ani.IsInTransition(0))
         {
+            print("ss");
+            print(m_time.ToString());
+            if (stateinfo.normalizedTime > 1.0f)
+            {
+                ///print(m_time.ToString());
+                //m_time = 0;
+            }
             m_ani.SetBool("idlefire", false);
 
             if (!inFire)
@@ -86,6 +99,18 @@ public class JoyMove : MonoBehaviour {
 
             if (!inFire)
                 m_ani.SetBool("walk", false);
+        }
+
+        //reload
+        if (stateinfo.nameHash == Animator.StringToHash("Base Layer.reload") && !m_ani.IsInTransition(0))
+        {
+            m_ani.SetBool("reload", false);
+            if (stateinfo.normalizedTime > 1.0f)
+            {
+                _m4_fire.m_bullet = 5;
+                m_ani.SetBool("idle", true);
+            }
+
         }
     }
 

@@ -103,11 +103,12 @@
     <Compile Include="Assets\script\cubetest.cs" />
     <Compile Include="Assets\script\fx_destroy.cs" />
     <Compile Include="Assets\script\gui.cs" />
+    <Compile Include="Assets\script\m4_fire.cs" />
     <Compile Include="Assets\script\muzzlefire.cs" />
-    <Compile Include="Assets\script\muzzlefireGenertator.cs" />
     <Compile Include="Assets\script\player\FPSPlayer.cs" />
     <Compile Include="Assets\script\player\JoyMove.cs" />
     <Compile Include="Assets\script\ray.cs" />
+    <Compile Include="Assets\script\snipe_destroy.cs" />
     <Compile Include="Assets\script\zombie.cs" />
     <Compile Include="Assets\script\zombiespawn.cs" />
   </ItemGroup>
