@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: bcc02fee2800bee4c944051860cdc2cb
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - m_fx_level: {fileID: 400000, guid: 8b66baa2141852e44995030ea5401f3e, type: 2}
+  - m_fx_blood: {fileID: 400008, guid: d97a9598ad2acc349973d408b7beae4a, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
