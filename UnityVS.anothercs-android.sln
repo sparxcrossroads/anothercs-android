@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.anothercs-android.CSharp", "UnityVS.anothercs-android.CSharp.csproj", "{AC0E7007-75CA-5571-691E-9C75276694CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.anothercs-android.CSharp.Editor", "UnityVS.anothercs-android.CSharp.Editor.csproj", "{56C57CF0-4332-D07D-FEC2-B33983599B6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{AC0E7007-75CA-5571-691E-9C75276694CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC0E7007-75CA-5571-691E-9C75276694CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC0E7007-75CA-5571-691E-9C75276694CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C57CF0-4332-D07D-FEC2-B33983599B6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C57CF0-4332-D07D-FEC2-B33983599B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C57CF0-4332-D07D-FEC2-B33983599B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C57CF0-4332-D07D-FEC2-B33983599B6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
