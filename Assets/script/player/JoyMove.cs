@@ -148,14 +148,15 @@ public class JoyMove : MonoBehaviour {
                 transform.position.y,
                 transform.position.z + joyPositionY));
 
-            if (m_ch.isGrounded)
-            {
+           
                 movedirection = Vector3.forward*Time.deltaTime*moveSpeed;
 
                 m_ch.Move(transform.TransformDirection(movedirection));
-            }
+            
             //transform.Translate(Vector3.forward * Time.deltaTime * 5);
-            m_ani.SetBool("walk", true);
+            //if(m_ani.GetBool("jump",))
+            if (!(stateinfo.nameHash == Animator.StringToHash("Base Layer.reload") && !m_ani.IsInTransition(0)))
+                m_ani.SetBool("walk", true);
         }
     }
     

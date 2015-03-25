@@ -41,7 +41,7 @@ public class m4_fire : MonoBehaviour {
 	}
     void _instantiate()
     {
-                transform.eulerAngles=new Vector3(0,0,0);
+                transform.eulerAngles=m_joymove.transform.eulerAngles;
                 Instantiate(muzzle_0, transform.position, transform.rotation);
                 Instantiate(muzzle_1, transform.position, transform.rotation);
     }
