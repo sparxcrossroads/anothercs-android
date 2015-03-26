@@ -6,6 +6,8 @@ public class m4_fire : MonoBehaviour {
 	// Use this for initialization
     public GameObject muzzle_0;
     public GameObject muzzle_1;
+    public GameObject fireExplosion;
+
     private JoyMove m_joymove;
 
     private float m_time = 0;
@@ -41,8 +43,21 @@ public class m4_fire : MonoBehaviour {
 	}
     void _instantiate()
     {
-                transform.eulerAngles=m_joymove.transform.eulerAngles;
                 Instantiate(muzzle_0, transform.position, transform.rotation);
                 Instantiate(muzzle_1, transform.position, transform.rotation);
+
+                RaycastHit info;
+                bool hit = Physics.Raycast
+                (
+                transform.position,
+                transform.TransformDirection(Vector3.forward),
+                out info,
+                100
+                );
+
+            if(hit)
+                Instantiate(fireExplosion, info.point, info.transform.rotation);
     }
+
+
 }

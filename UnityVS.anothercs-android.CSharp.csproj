@@ -108,7 +108,6 @@
     <Compile Include="Assets\script\m4_fire.cs" />
     <Compile Include="Assets\script\muzzlefire.cs" />
     <Compile Include="Assets\script\particle\rampDownParticle.cs" />
-    <Compile Include="Assets\script\player\FPSPlayer.cs" />
     <Compile Include="Assets\script\player\JoyMove.cs" />
     <Compile Include="Assets\script\ray.cs" />
     <Compile Include="Assets\script\snipe_destroy.cs" />

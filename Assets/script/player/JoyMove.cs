@@ -10,6 +10,8 @@ public class JoyMove : MonoBehaviour {
     public AnimatorStateInfo stateinfo;
     private m4_fire _m4_fire;
 
+    public int m_life = 20;
+
     private float gravity = 8.0f;
     private float moveSpeed = 3.0f;
     private float jumpSpeed = 4.0f;
@@ -32,6 +34,7 @@ public class JoyMove : MonoBehaviour {
     }
     void Update()
     {
+        if (m_life <= 0) return;
         // get aniamtor.stateinfo 
         stateinfo = m_ani.GetCurrentAnimatorStateInfo(0);
         if(inFire)
@@ -180,5 +183,8 @@ public class JoyMove : MonoBehaviour {
     {
         print("nofire");
         inFire = false;
+    }
+    public void onhurt(int hurtlevel)
+    { 
     }
 }

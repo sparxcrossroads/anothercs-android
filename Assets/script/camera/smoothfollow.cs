@@ -6,7 +6,7 @@ public class smoothfollow : MonoBehaviour {
     public Transform target;
 
     private float distance = 5.0f;
-    private float height = 5.0f;
+    private float height = 3.0f;
     private float heightDamping = 1.0f;
     private float rotationDamping = 3.0f;
 
