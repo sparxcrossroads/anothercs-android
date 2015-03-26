@@ -116,6 +116,11 @@ public class JoyMove : MonoBehaviour {
                 inreload = false;
                 print("##relaod-> :" + inreload.ToString());
             }
+            else 
+            {
+                // 防止在reload没做完就转化到idel的bug 和后面可能的 ->run
+                inreload = true;
+            }
 
         }
     }

@@ -15,6 +15,7 @@ public class gui : MonoBehaviour {
     public int m_bullet = 100;
 
     private m4_fire _m4_fire;
+    private bool m_pause = false;
 
 	// Use this for initialization
 	void Start () {
@@ -41,6 +42,8 @@ public class gui : MonoBehaviour {
     {
         if(m_play.m_life<=0)
         {
+            GUI.color = Color.red;
+
             GUI.skin.label.alignment = TextAnchor.MiddleCenter;
             GUI.skin.label.fontSize = 40;
             GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "you died");
@@ -49,7 +52,23 @@ public class gui : MonoBehaviour {
             GUI.skin.label.fontSize = 30;
             if (GUI.Button(new Rect(Screen.width * 0.5f - 150, Screen.height * 0.75f, 300, 40), "continue"))
                 Application.LoadLevel(Application.loadedLevelName);
-        }       
+        }
+       
+        if(m_pause)
+        {
+            GUI.color = Color.red;
+            GUI.skin.box.fontSize = 16;
+            GUI.Box(new Rect(Screen.width * 0.5f-200, Screen.height * 0.5f-100, 350, 150),"menu (push again return to scene)");
+            GUI.color = Color.white;
+            if (GUI.Button(new Rect(Screen.width * 0.5f - 160, Screen.height * 0.5f - 40, 100, 60), "Restart"))
+            {
+                Application.LoadLevel(Application.loadedLevelName);
+                Time.timeScale = 1;
+            }
+            if (GUI.Button(new Rect(Screen.width * 0.5f, Screen.height * 0.5f - 40, 100, 60), "Exit"))
+                Application.Quit();
+
+        }
     }
 
     public void setlife()
@@ -73,6 +92,14 @@ public class gui : MonoBehaviour {
     {
         m_bullet = 100;
         text_bullet.text = "bullet: " + m_bullet.ToString();
+    }
+
+    void menu()
+    {
+        m_pause = !m_pause;
+        Time.timeScale = m_pause ? 0 : 1;
+
+        print("sss");
     }
   
 }
