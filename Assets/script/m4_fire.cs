@@ -14,7 +14,6 @@ public class m4_fire : MonoBehaviour {
     private float m_time = 0;
     private float idle_time = 0.03f;
 
-    public int m_bullet=5;
 	void Start () {
         m_joymove = GameObject.FindGameObjectWithTag("player").GetComponent<JoyMove>();
         _gui=GameObject.FindGameObjectWithTag("gui").GetComponent<gui>();
@@ -25,21 +24,18 @@ public class m4_fire : MonoBehaviour {
         if(m_joymove.stateinfo.nameHash==Animator.StringToHash("Base Layer.reload")&&!m_joymove.m_ani.IsInTransition(0))
             m_time=0;
 
-        if (m_bullet <= 0)
-            m_joymove.m_ani.SetBool("reload", true);
 
         if (m_joymove.inFire)
         {
             m_time += Time.deltaTime;
             print("muzzle");
-            if (m_time >0.3&&m_bullet>=0)
+            if (m_time >0.3&&_gui.m_bullet>=0)
             {
                 print("muzzle luck");
             _instantiate();
-            m_bullet--;
             // TODO
             //bullet destroy();
-            _gui.setbullet(m_bullet);
+            _gui.setbullet();
 
             m_time = 0;
             }          

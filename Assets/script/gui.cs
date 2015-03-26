@@ -12,6 +12,7 @@ public class gui : MonoBehaviour {
     private GUIText text_bullet;
     private GUIText text_score;
     private GUIText text_life;
+    public int m_bullet = 100;
 
     private m4_fire _m4_fire;
 
@@ -27,7 +28,7 @@ public class gui : MonoBehaviour {
         text_life = this.transform.FindChild("text_life").GetComponent<GUIText>();
 
         text_life.text = "life: " + m_play.m_life.ToString();
-        text_bullet.text = "bullet: " + _m4_fire.m_bullet.ToString();
+        text_bullet.text = "bullet: " +m_bullet.ToString();
 
         text_score.text = "score: " + m_score.ToString();
 	}
@@ -60,9 +61,18 @@ public class gui : MonoBehaviour {
         m_score += score;
         text_score.text = "score: " + m_score.ToString();
     }
-    public void setbullet(int bullet)
+    public void setbullet()
     {
-        text_bullet.text = "bullet: " + bullet.ToString();
+        if (m_bullet <= 0)
+            return;
+        m_bullet--;
+        text_bullet.text = "bullet: " + m_bullet.ToString();
+    }
+    public void resetbullet()
+
+    {
+        m_bullet = 100;
+        text_bullet.text = "bullet: " + m_bullet.ToString();
     }
   
 }

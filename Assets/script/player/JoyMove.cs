@@ -8,7 +8,6 @@ public class JoyMove : MonoBehaviour {
     public Animator m_ani;
     private CharacterController m_ch;
     public AnimatorStateInfo stateinfo;
-    private m4_fire _m4_fire;
     public GameObject fx_blood;
     private gui _gui;
 
@@ -23,7 +22,7 @@ public class JoyMove : MonoBehaviour {
 
     private bool inJump = false;
     public bool inFire = false;
-
+    private bool inreload = false;
 
     private float m_time=0;
 
@@ -31,7 +30,6 @@ public class JoyMove : MonoBehaviour {
     {
         m_ani = GetComponent<Animator>();
         m_ch = GetComponent<CharacterController>();
-        _m4_fire = GameObject.FindGameObjectWithTag("m4_fire").GetComponent<m4_fire>();
         _gui = GameObject.FindGameObjectWithTag("gui").GetComponent<gui>();
 
     }
@@ -113,8 +111,10 @@ public class JoyMove : MonoBehaviour {
             m_ani.SetBool("reload", false);
             if (stateinfo.normalizedTime > 1.0f)
             {
-                _m4_fire.m_bullet = 5;
+                _gui.resetbullet();
                 m_ani.SetBool("idle", true);
+                inreload = false;
+                print("##relaod-> :" + inreload.ToString());
             }
 
         }
@@ -145,6 +145,12 @@ public class JoyMove : MonoBehaviour {
             return;
         }
 
+        print("joystick->: "+inreload.ToString());
+
+        //during reload freeze
+        if (inreload)
+            return;
+
         float joyPositionX = move.joystickAxis.x;
         float joyPositionY = move.joystickAxis.y;
 
@@ -158,10 +164,7 @@ public class JoyMove : MonoBehaviour {
                 movedirection = Vector3.forward*Time.deltaTime*moveSpeed;
 
                 m_ch.Move(transform.TransformDirection(movedirection));
-            
-            //transform.Translate(Vector3.forward * Time.deltaTime * 5);
-            //if(m_ani.GetBool("jump",))
-            if (!(stateinfo.nameHash == Animator.StringToHash("Base Layer.reload") && !m_ani.IsInTransition(0)))
+           
                 m_ani.SetBool("walk", true);
         }
     }
@@ -170,7 +173,8 @@ public class JoyMove : MonoBehaviour {
     {
         //print("jump");
         m_ani.SetBool("jump", true);
-        inJump = true;
+        if(!inreload)
+            inJump = true;
         moveGravity.y += jumpSpeed;
         m_ch.Move(moveGravity * Time.deltaTime);
                
@@ -187,6 +191,14 @@ public class JoyMove : MonoBehaviour {
         print("nofire");
         inFire = false;
     }
+
+    void reload()
+    {
+        inreload = true;
+        m_ani.SetBool("reload", true);
+        print("button relaod"+inreload.ToString());
+    }
+
     public void onhurt(int hurtlevel)
     {
         if (m_life < 0)
