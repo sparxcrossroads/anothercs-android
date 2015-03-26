@@ -9,11 +9,13 @@ public class JoyMove : MonoBehaviour {
     private CharacterController m_ch;
     public AnimatorStateInfo stateinfo;
     private m4_fire _m4_fire;
+    public GameObject fx_blood;
+    private gui _gui;
 
     public int m_life = 20;
 
     private float gravity = 8.0f;
-    private float moveSpeed = 3.0f;
+    private float moveSpeed = 4.0f;
     private float jumpSpeed = 4.0f;
 
     private Vector3 movedirection;
@@ -30,6 +32,7 @@ public class JoyMove : MonoBehaviour {
         m_ani = GetComponent<Animator>();
         m_ch = GetComponent<CharacterController>();
         _m4_fire = GameObject.FindGameObjectWithTag("m4_fire").GetComponent<m4_fire>();
+        _gui = GameObject.FindGameObjectWithTag("gui").GetComponent<gui>();
 
     }
     void Update()
@@ -185,6 +188,15 @@ public class JoyMove : MonoBehaviour {
         inFire = false;
     }
     public void onhurt(int hurtlevel)
-    { 
+    {
+        if (m_life < 0)
+            return;
+        m_life -= hurtlevel;
+        float _x = Random.Range(-0.2f, 0.2f);
+        float _y = Random.Range(1.3f, 1.8f);
+        float _z = Random.Range(-0.2f, 0.2f);
+        Vector3 _ran_pos = new Vector3(_x, _y, _z);
+        Instantiate(fx_blood, transform.position+_ran_pos, transform.rotation);
+        _gui.setlife();
     }
 }

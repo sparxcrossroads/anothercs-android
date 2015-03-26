@@ -60,5 +60,9 @@ public class gui : MonoBehaviour {
         m_score += score;
         text_score.text = "score: " + m_score.ToString();
     }
+    public void setbullet(int bullet)
+    {
+        text_bullet.text = "bullet: " + bullet.ToString();
+    }
   
 }

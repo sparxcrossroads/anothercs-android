@@ -9,6 +9,7 @@ public class m4_fire : MonoBehaviour {
     public GameObject fireExplosion;
 
     private JoyMove m_joymove;
+    private gui _gui;
 
     private float m_time = 0;
     private float idle_time = 0.03f;
@@ -16,6 +17,7 @@ public class m4_fire : MonoBehaviour {
     public int m_bullet=5;
 	void Start () {
         m_joymove = GameObject.FindGameObjectWithTag("player").GetComponent<JoyMove>();
+        _gui=GameObject.FindGameObjectWithTag("gui").GetComponent<gui>();
 	}
 	
 	// Update is called once per frame
@@ -35,7 +37,9 @@ public class m4_fire : MonoBehaviour {
                 print("muzzle luck");
             _instantiate();
             m_bullet--;
+            // TODO
             //bullet destroy();
+            _gui.setbullet(m_bullet);
 
             m_time = 0;
             }          
