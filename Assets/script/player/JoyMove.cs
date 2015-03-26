@@ -162,7 +162,7 @@ public class JoyMove : MonoBehaviour {
     
     void jump()
     {
-        print("jump");
+        //print("jump");
         m_ani.SetBool("jump", true);
         inJump = true;
         moveGravity.y += jumpSpeed;
