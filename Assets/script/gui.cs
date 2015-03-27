@@ -19,14 +19,12 @@ public class gui : MonoBehaviour {
 
     public int m_bullet = 100;
 
-    private m4_fire _m4_fire;
     private bool m_pause = false;
 
 	// Use this for initialization
 	void Start () {
         Instance = this;
         m_play = GameObject.FindGameObjectWithTag("player").GetComponent<JoyMove>();
-        _m4_fire = GameObject.FindGameObjectWithTag("m4_fire").GetComponent<m4_fire>();
 
         //text_life = this.transform.FindChild("text_life").GetComponent<GUIText>();
         text_bullet = this.transform.FindChild("text_bullet").GetComponent<GUIText>();
@@ -57,6 +55,7 @@ public class gui : MonoBehaviour {
 
         hp_black.pixelInset = new Rect(-64,-29,200,58);
         hp_red.pixelInset = new Rect(-64, -29, 10 * m_play.m_life, 58);
+
 	}
     void OnGUI()
     {

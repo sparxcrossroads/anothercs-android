@@ -37,7 +37,7 @@ public class line : MonoBehaviour {
             m_line.SetPosition(0, m_transform.position);
             m_line.SetPosition(1, info.point);
 
-            print(m_transform.eulerAngles.ToString());
+            //print(m_transform.eulerAngles.ToString());
 
             m_pla.transform.position = info.point;
             m_pla.transform.eulerAngles = m_transform.eulerAngles+new Vector3(90,0,0);
