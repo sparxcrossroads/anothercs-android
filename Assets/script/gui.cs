@@ -12,6 +12,11 @@ public class gui : MonoBehaviour {
     private GUIText text_bullet;
     private GUIText text_score;
     private GUIText text_life;
+    private GUITexture hp_red;
+    private GUITexture hp_black;
+
+    private Transform trans_red;
+
     public int m_bullet = 100;
 
     private m4_fire _m4_fire;
@@ -27,6 +32,12 @@ public class gui : MonoBehaviour {
         text_bullet = this.transform.FindChild("text_bullet").GetComponent<GUIText>();
         text_score = this.transform.FindChild("text_score").GetComponent<GUIText>();
         text_life = this.transform.FindChild("text_life").GetComponent<GUIText>();
+        hp_red = this.transform.FindChild("hp_red").GetComponent<GUITexture>();
+        hp_black = this.transform.FindChild("hp_black").GetComponent<GUITexture>();
+
+
+        // 缩放y 轴 抖动效果
+        trans_red = this.transform.FindChild("hp_red").GetComponent<Transform>();
 
         text_life.text = "life: " + m_play.m_life.ToString();
         text_bullet.text = "bullet: " +m_bullet.ToString();
@@ -36,21 +47,31 @@ public class gui : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (m_play.m_life <= 0)
+            return;
+        if (m_play.m_life <= 5)
+        {
+            float _red = Random.Range(0, 0.2f);
+            trans_red.localScale = new Vector3(0, _red, 1);
+        }
 
+        hp_black.pixelInset = new Rect(-64,-29,200,58);
+        hp_red.pixelInset = new Rect(-64, -29, 10 * m_play.m_life, 58);
 	}
     void OnGUI()
     {
+        
         if(m_play.m_life<=0)
         {
             GUI.color = Color.red;
 
             GUI.skin.label.alignment = TextAnchor.MiddleCenter;
             GUI.skin.label.fontSize = 40;
-            GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "you died");
+            GUI.Label(new Rect(0, 0, Screen.width, Screen.height-100), "you died");
 
             //restart
             GUI.skin.label.fontSize = 30;
-            if (GUI.Button(new Rect(Screen.width * 0.5f - 150, Screen.height * 0.75f, 300, 40), "continue"))
+            if (GUI.Button(new Rect(Screen.width * 0.5f - 150, Screen.height * 0.5f, 300, 40), "continue"))
                 Application.LoadLevel(Application.loadedLevelName);
         }
        
