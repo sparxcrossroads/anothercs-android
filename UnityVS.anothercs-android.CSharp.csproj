@@ -105,6 +105,7 @@
     <Compile Include="Assets\script\fx_destroy.cs" />
     <Compile Include="Assets\script\gui.cs" />
     <Compile Include="Assets\script\laserDot.cs" />
+    <Compile Include="Assets\script\line.cs" />
     <Compile Include="Assets\script\m4_fire.cs" />
     <Compile Include="Assets\script\muzzlefire.cs" />
     <Compile Include="Assets\script\particle\rampDownParticle.cs" />
