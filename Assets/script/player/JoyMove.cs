@@ -24,6 +24,7 @@ public class JoyMove : MonoBehaviour {
     public bool inFire = false;
     private bool inreload = false;
     private bool inrun = false;
+    //private bool intouch = false;
 
     private float m_time=0;
 
@@ -58,6 +59,12 @@ public class JoyMove : MonoBehaviour {
                 m_ani.SetInteger("index", 11);
 
         }
+        ////idleaim
+        //if (stateinfo.nameHash == Animator.StringToHash("Base Layer.idleaim") && !m_ani.IsInTransition(0))
+        //{
+        //    if (!intouch)
+        //        m_ani.SetInteger("index", 1);
+        //}
         //jump
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.jump") && !m_ani.IsInTransition(0))
         {
@@ -111,7 +118,7 @@ public class JoyMove : MonoBehaviour {
              {
                  m_time = 0;
                  inrun = false;
-                 m_ani.SetInteger("index", 2);
+                 //m_ani.SetInteger("index", 2);
              }
              if (inFire)
                  m_ani.SetInteger("index", 31);
@@ -127,10 +134,21 @@ public class JoyMove : MonoBehaviour {
 
     void OnEnable()
     {
+        print("ss");
         EasyJoystick.On_JoystickMove += OnJoyStickMove;
         EasyJoystick.On_JoystickMoveEnd += OnJoystickMoveEnd;
     }
-	
+
+    void OnDisable()
+    {
+        EasyJoystick.On_JoystickMove -= OnJoyStickMove;
+        EasyJoystick.On_JoystickMoveEnd -= OnJoystickMoveEnd;
+    }
+    void OnDestroy()
+    {
+        EasyJoystick.On_JoystickMove -= OnJoyStickMove;
+        EasyJoystick.On_JoystickMoveEnd -= OnJoystickMoveEnd;
+    }
     void OnJoystickMoveEnd(MovingJoystick move)
     {
         // stop joystick 
@@ -139,21 +157,20 @@ public class JoyMove : MonoBehaviour {
             m_time = 0;
             inrun = false;
             m_ani.SetInteger("index", 1);
+            //intouch = false;
         }
     }
 
     void OnJoyStickMove(MovingJoystick move)
     {
-        
         if(move.joystickName!="MoveJoystick")
         {
             return;
         }
 
+        //intouch = true;
         float joyPositionX = move.joystickAxis.x;
         float joyPositionY = move.joystickAxis.y;
-
-        print("inrun" + inrun.ToString());
 
         if (joyPositionX * joyPositionX + joyPositionY * joyPositionY > 0.95)
         {
@@ -161,7 +178,7 @@ public class JoyMove : MonoBehaviour {
 
             if (m_time > 0.1f&&!inJump)
             {
-                print("run");
+                //print("run");
                 m_ani.SetInteger("index", 3);
                 inrun = true;
             }
@@ -187,7 +204,7 @@ public class JoyMove : MonoBehaviour {
                 m_ch.Move(transform.TransformDirection(movedirection));
             if(!inrun&&!inJump)
                 m_ani.SetInteger("index", 2);
-        }
+        }      
     }
     
     void jump()
