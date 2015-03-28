@@ -24,7 +24,7 @@ public class JoyMove : MonoBehaviour {
     public bool inFire = false;
     private bool inreload = false;
     private bool inrun = false;
-    //private bool intouch = false;
+    private bool inaim = false;
 
     private float m_time=0;
 
@@ -59,12 +59,12 @@ public class JoyMove : MonoBehaviour {
                 m_ani.SetInteger("index", 11);
 
         }
-        ////idleaim
-        //if (stateinfo.nameHash == Animator.StringToHash("Base Layer.idleaim") && !m_ani.IsInTransition(0))
-        //{
-        //    if (!intouch)
-        //        m_ani.SetInteger("index", 1);
-        //}
+        //idleaim
+        if (stateinfo.nameHash == Animator.StringToHash("Base Layer.idleaim") && !m_ani.IsInTransition(0))
+        {
+            if (!inaim)
+                m_ani.SetInteger("index", 14);
+        }
         //jump
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.jump") && !m_ani.IsInTransition(0))
         {
@@ -134,7 +134,6 @@ public class JoyMove : MonoBehaviour {
 
     void OnEnable()
     {
-        print("ss");
         EasyJoystick.On_JoystickMove += OnJoyStickMove;
         EasyJoystick.On_JoystickMoveEnd += OnJoystickMoveEnd;
     }
@@ -149,6 +148,7 @@ public class JoyMove : MonoBehaviour {
         EasyJoystick.On_JoystickMove -= OnJoyStickMove;
         EasyJoystick.On_JoystickMoveEnd -= OnJoystickMoveEnd;
     }
+
     void OnJoystickMoveEnd(MovingJoystick move)
     {
         // stop joystick 
@@ -236,6 +236,16 @@ public class JoyMove : MonoBehaviour {
         m_ani.SetInteger("index", 5);
     }
 
+    void idleaim()
+    {
+        inaim = true;
+        m_ani.SetInteger("index", 13);
+    }
+
+    void noidleaim()
+    {
+        inaim = false;
+    }
     public void onhurt(int hurtlevel)
     {
         if (m_life < 0)
