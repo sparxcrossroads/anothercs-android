@@ -53,8 +53,7 @@ public class gui : MonoBehaviour {
             trans_red.localScale = new Vector3(0, _red, 1);
         }
 
-        hp_black.pixelInset = new Rect(-64,-29,200,58);
-        hp_red.pixelInset = new Rect(-64, -29, 10 * m_play.m_life, 58);
+        hp_red.pixelInset = new Rect(-64, -29, 20 * m_play.m_life, 58);
 
 	}
     void OnGUI()
@@ -69,7 +68,7 @@ public class gui : MonoBehaviour {
             GUI.Label(new Rect(0, 0, Screen.width, Screen.height-100), "you died");
 
             //restart
-            GUI.skin.label.fontSize = 30;
+            GUI.skin.label.fontSize = 36;
             if (GUI.Button(new Rect(Screen.width * 0.5f - 150, Screen.height * 0.5f, 300, 40), "continue"))
                 Application.LoadLevel(Application.loadedLevelName);
         }
@@ -77,15 +76,15 @@ public class gui : MonoBehaviour {
         if(m_pause)
         {
             GUI.color = Color.red;
-            GUI.skin.box.fontSize = 16;
-            GUI.Box(new Rect(Screen.width * 0.5f-200, Screen.height * 0.5f-100, 350, 150),"menu (push again return to scene)");
+            GUI.skin.box.fontSize = 24;
+            GUI.Box(new Rect(Screen.width * 0.5f-200, Screen.height * 0.5f-100, 450, 250),"menu (push again return to scene)");
             GUI.color = Color.white;
-            if (GUI.Button(new Rect(Screen.width * 0.5f - 160, Screen.height * 0.5f - 40, 100, 60), "Restart"))
+            if (GUI.Button(new Rect(Screen.width * 0.5f - 160, Screen.height * 0.5f - 40, 150, 80), "Restart"))
             {
                 Application.LoadLevel(Application.loadedLevelName);
                 Time.timeScale = 1;
             }
-            if (GUI.Button(new Rect(Screen.width * 0.5f, Screen.height * 0.5f - 40, 100, 60), "Exit"))
+            if (GUI.Button(new Rect(Screen.width * 0.5f+60, Screen.height * 0.5f - 40, 150, 80), "Exit"))
                 Application.Quit();
 
         }

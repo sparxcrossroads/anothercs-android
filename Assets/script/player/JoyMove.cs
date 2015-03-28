@@ -54,94 +54,74 @@ public class JoyMove : MonoBehaviour {
         //idle
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.idle") && !m_ani.IsInTransition(0))
         {
-            m_ani.SetBool("idle", false);
             if (inFire)
-                m_ani.SetBool("idlefire", true);
+                m_ani.SetInteger("index", 11);
 
         }
         //jump
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.jump") && !m_ani.IsInTransition(0))
         {
-            m_ani.SetBool("jump", false);
-            print("ss");
             if (m_ch.isGrounded)
             {
-                m_ani.SetBool("idle", true);
+                m_ani.SetInteger("index", 1);
                 inJump = false;
             }
         }
         //walk
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.walk") && !m_ani.IsInTransition(0))
         {
-            m_ani.SetBool("walk", false);
             if (inFire)
-                m_ani.SetBool("walkfire", true);
+                m_ani.SetInteger("index",21);
         }
 
         //idlefire
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.idlefire") && !m_ani.IsInTransition(0))
         {
-
-            m_ani.SetBool("idlefire", false);
-
+            print("idlefire");
             if (!inFire)
-                m_ani.SetBool("idle", true);
+                m_ani.SetInteger("index", 12);
 
 
         }
 
         //walkfire
-        if (stateinfo.nameHash == Animator.StringToHash("Base Layer.idlefire") && !m_ani.IsInTransition(0))
+        if (stateinfo.nameHash == Animator.StringToHash("Base Layer.walkfire") && !m_ani.IsInTransition(0))
         {
-            m_ani.SetBool("walkfire", false);
-
             if (!inFire)
-                m_ani.SetBool("walk", false);
+                m_ani.SetInteger("index", 2);
         }
 
         //reload
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.reload") && !m_ani.IsInTransition(0))
         {
-            m_ani.SetBool("reload", false);
             if (stateinfo.normalizedTime > 1.0f)
             {
-                print("sss");
                 _gui.resetbullet();
-                m_ani.SetBool("idle", true);
+                m_ani.SetInteger("index", 1);
                 inreload = false;
-                print("##relaod-> :" + inreload.ToString());
             }
-            //else 
-            //{
-            //    // 防止在reload没做完就转化到idel的bug 和后面可能的 ->run
-            //    inreload = true;
-            //}
 
         }
 
         //run
          if (stateinfo.nameHash == Animator.StringToHash("Base Layer.run") && !m_ani.IsInTransition(0))
          {
-             m_ani.SetBool("run", false);
-             print("run-?");
-             print("inrun:" + inrun.ToString());
 
              if (!inrun && !inreload)
              {
                  m_time = 0;
                  inrun = false;
-                 m_ani.SetBool("idle", true);
+                 m_ani.SetInteger("index", 2);
              }
              if (inFire)
-                 m_ani.SetBool("runfire", true);
+                 m_ani.SetInteger("index", 31);
          }
 
         //runfire
         if (stateinfo.nameHash == Animator.StringToHash("Base Layer.runfire") && !m_ani.IsInTransition(0))
         {
-            m_ani.SetBool("runfire", false);
             if (!inFire)
-                m_ani.SetBool("run", true);
+                m_ani.SetInteger("index", 3);
         }
     }
 
@@ -153,47 +133,42 @@ public class JoyMove : MonoBehaviour {
 	
     void OnJoystickMoveEnd(MovingJoystick move)
     {
-        m_ani.SetBool("walk", false);
         // stop joystick 
         if (move.joystickName == "MoveJoystick" && !inJump)
         {
             m_time = 0;
             inrun = false;
-            m_ani.SetBool("idle", true);
+            m_ani.SetInteger("index", 1);
         }
     }
 
     void OnJoyStickMove(MovingJoystick move)
     {
-        m_ani.SetBool("idle", false);
         
         if(move.joystickName!="MoveJoystick")
         {
             return;
         }
 
-        //during reload freeze
-        if (inreload)
-            return;
-
         float joyPositionX = move.joystickAxis.x;
         float joyPositionY = move.joystickAxis.y;
 
+        print("inrun" + inrun.ToString());
 
         if (joyPositionX * joyPositionX + joyPositionY * joyPositionY > 0.95)
         {
             m_time += Time.deltaTime;
 
-            if (m_time > 0.25f)
+            if (m_time > 0.1f&&!inJump)
             {
-                m_ani.SetBool("run", true);
+                print("run");
+                m_ani.SetInteger("index", 3);
                 inrun = true;
             }
         }
         else
             inrun = false;
 
-        print(inrun.ToString());
         if (inrun)
             moveSpeed = 5.5f;
         else
@@ -210,15 +185,15 @@ public class JoyMove : MonoBehaviour {
                 movedirection = Vector3.forward*Time.deltaTime*moveSpeed;
 
                 m_ch.Move(transform.TransformDirection(movedirection));
-           
-                m_ani.SetBool("walk", true);
+            if(!inrun&&!inJump)
+                m_ani.SetInteger("index", 2);
         }
     }
     
     void jump()
     {
         //print("jump");
-        m_ani.SetBool("jump", true);
+        m_ani.SetInteger("index", 4);
         if(!inreload)
             inJump = true;
         moveGravity.y += jumpSpeed;
@@ -241,8 +216,7 @@ public class JoyMove : MonoBehaviour {
     void reload()
     {
         inreload = true;
-        m_ani.SetBool("reload", true);
-        print("button relaod"+inreload.ToString());
+        m_ani.SetInteger("index", 5);
     }
 
     public void onhurt(int hurtlevel)

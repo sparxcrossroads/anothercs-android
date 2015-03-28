@@ -1,0 +1,9 @@
+D:\u3d\anothercs-android\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+D:\u3d\anothercs-android\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\u3d\anothercs-android\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\u3d\anothercs-android\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\u3d\anothercs-android\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\u3d\anothercs-android\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\u3d\anothercs-android\obj\Debug\UnityVS.anothercs-android.CSharp.csprojResolveAssemblyReference.cache
+D:\u3d\anothercs-android\obj\Debug\Assembly-CSharp.dll
+D:\u3d\anothercs-android\obj\Debug\Assembly-CSharp.pdb
