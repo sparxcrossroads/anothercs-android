@@ -7,7 +7,8 @@ public class m4_fire : MonoBehaviour {
     public GameObject muzzle_0;
     public GameObject muzzle_1;
     public GameObject fireExplosion;
-
+    public GameObject BloodSplatEffect;
+    public AudioClip m_audio_fire;
     private JoyMove m_joymove;
     private gui _gui;
 
@@ -31,6 +32,7 @@ public class m4_fire : MonoBehaviour {
             print("muzzle");
             if (m_time >0.3&&_gui.m_bullet>=0)
             {
+                this.audio.PlayOneShot(m_audio_fire);
                 print("muzzle luck");
             _instantiate();
             // TODO
@@ -55,8 +57,18 @@ public class m4_fire : MonoBehaviour {
                 100
                 );
 
-            if(hit)
-                Instantiate(fireExplosion, info.point, info.transform.rotation);
+                if (hit)
+                {
+                    if (info.transform.tag.CompareTo("zombie") == 0)
+                    {
+                        zombie _zombie = info.transform.GetComponent<zombie>();
+                        _zombie.OnDamage(1);
+                        Instantiate(BloodSplatEffect, info.point, info.transform.rotation);
+
+                    }
+                    else
+                        Instantiate(fireExplosion, info.point, info.transform.rotation);
+                }
     }
 
 

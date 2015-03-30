@@ -26,7 +26,13 @@ public class JoyMove : MonoBehaviour {
     private bool inrun = false;
     private bool inaim = false;
 
+    //audioclip
+    public AudioClip m_audio_jump;
+    public AudioClip m_audio_reload;
+    public AudioClip m_audio_run;
+
     private float m_time=0;
+    private float m_time_audio = 0;
 
     void Start()
     {
@@ -178,8 +184,15 @@ public class JoyMove : MonoBehaviour {
 
             if (m_time > 0.1f&&!inJump)
             {
+                m_time_audio += Time.deltaTime;
                 //print("run");
-                m_ani.SetInteger("index", 3);
+                if (m_time_audio > 1.5f)
+                {
+                    this.audio.PlayOneShot(m_audio_run);
+                    m_time_audio = -1;
+                }
+                if(!inFire)
+                    m_ani.SetInteger("index", 3);
                 inrun = true;
             }
         }
@@ -202,7 +215,7 @@ public class JoyMove : MonoBehaviour {
                 movedirection = Vector3.forward*Time.deltaTime*moveSpeed;
 
                 m_ch.Move(transform.TransformDirection(movedirection));
-            if(!inrun&&!inJump)
+            if(!inrun&&!inJump&&!inFire)
                 m_ani.SetInteger("index", 2);
         }      
     }
@@ -215,7 +228,8 @@ public class JoyMove : MonoBehaviour {
             inJump = true;
         moveGravity.y += jumpSpeed;
         m_ch.Move(moveGravity * Time.deltaTime);
-               
+
+        audio.PlayOneShot(m_audio_jump);
     }
 
     void fire()
@@ -234,6 +248,8 @@ public class JoyMove : MonoBehaviour {
     {
         inreload = true;
         m_ani.SetInteger("index", 5);
+
+        this.audio.PlayOneShot(m_audio_reload);
     }
 
     void idleaim()
