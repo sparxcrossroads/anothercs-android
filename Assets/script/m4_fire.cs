@@ -7,15 +7,12 @@ public class m4_fire : MonoBehaviour {
     public GameObject muzzle_0;
     public GameObject muzzle_1;
     public GameObject fireExplosion;
-    public GameObject BloodSplatEffect;
 
     private JoyMove m_joymove;
     private gui _gui;
-    private zombie hit_zombie;
 
     private float m_time = 0;
     private float idle_time = 0.03f;
-    public AudioClip m_audio_m4_fire;
 
 	void Start () {
         m_joymove = GameObject.FindGameObjectWithTag("player").GetComponent<JoyMove>();
@@ -31,7 +28,7 @@ public class m4_fire : MonoBehaviour {
         if (m_joymove.inFire)
         {
             m_time += Time.deltaTime;
-            //print("muzzle");
+            print("muzzle");
             if (m_time >0.3&&_gui.m_bullet>=0)
             {
                 print("muzzle luck");
@@ -57,24 +54,9 @@ public class m4_fire : MonoBehaviour {
                 out info,
                 100
                 );
-                
+
             if(hit)
-            {
-                if (!this.audio.isPlaying)
-                    audio.PlayOneShot(m_audio_m4_fire);
-
-                if (info.transform.tag.CompareTo("zombie") == 0)
-                {
-                    hit_zombie = info.transform.GetComponent<zombie>();
-                    hit_zombie.OnDamage(1);
-
-                    Instantiate(BloodSplatEffect, info.point, info.transform.rotation);
-
-                }
-                else
-                    Instantiate(fireExplosion, info.point, info.transform.rotation);
-
-            }
+                Instantiate(fireExplosion, info.point, info.transform.rotation);
     }
 
 
