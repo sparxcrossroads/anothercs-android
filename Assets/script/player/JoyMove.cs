@@ -27,7 +27,12 @@ public class JoyMove : MonoBehaviour {
     private bool inaim = false;
 
     private float m_time=0;
+    private float m_audio_time = 0;
 
+    public AudioClip m_audio_run;
+    public AudioClip m_audio_jump;
+    public AudioClip m_audio_reload;
+    
     void Start()
     {
         m_ani = GetComponent<Animator>();
@@ -37,7 +42,7 @@ public class JoyMove : MonoBehaviour {
     }
     void Update()
     {
-        if (m_life <= 0) return;
+        if (m_life <= 0) return; 
         // get aniamtor.stateinfo 
         stateinfo = m_ani.GetCurrentAnimatorStateInfo(0);
 
@@ -179,7 +184,16 @@ public class JoyMove : MonoBehaviour {
             if (m_time > 0.1f&&!inJump)
             {
                 //print("run");
-                m_ani.SetInteger("index", 3);
+                if (!inFire)
+                {
+                    m_audio_time += Time.deltaTime;
+                    if(m_audio_time>2.5f)
+                    {
+                        audio.PlayOneShot(m_audio_run);
+                        m_audio_time=0;
+                    }
+                    m_ani.SetInteger("index", 3);
+                }
                 inrun = true;
             }
         }
@@ -202,7 +216,7 @@ public class JoyMove : MonoBehaviour {
                 movedirection = Vector3.forward*Time.deltaTime*moveSpeed;
 
                 m_ch.Move(transform.TransformDirection(movedirection));
-            if(!inrun&&!inJump)
+            if(!inrun&&!inJump&&!inFire)
                 m_ani.SetInteger("index", 2);
         }      
     }
@@ -215,7 +229,8 @@ public class JoyMove : MonoBehaviour {
             inJump = true;
         moveGravity.y += jumpSpeed;
         m_ch.Move(moveGravity * Time.deltaTime);
-               
+
+        this.audio.PlayOneShot(m_audio_jump);
     }
 
     void fire()
@@ -232,6 +247,7 @@ public class JoyMove : MonoBehaviour {
 
     void reload()
     {
+        this.audio.PlayOneShot(m_audio_reload);
         inreload = true;
         m_ani.SetInteger("index", 5);
     }
@@ -257,5 +273,15 @@ public class JoyMove : MonoBehaviour {
         Vector3 _ran_pos = new Vector3(_x, _y, _z);
         Instantiate(fx_blood, transform.position+_ran_pos, transform.rotation);
         _gui.setlife();
+    }
+    IEnumerator _play_audio()
+    {
+        print("ss");
+        if (!audio.isPlaying)
+        {
+            print("join");
+            audio.PlayOneShot(m_audio_run);
+        }
+        yield return new WaitForSeconds(audio.clip.length);
     }
 }
