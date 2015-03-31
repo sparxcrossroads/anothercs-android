@@ -113,6 +113,7 @@
     <Compile Include="Assets\script\player\JoyMove.cs" />
     <Compile Include="Assets\script\player\rotate.cs" />
     <Compile Include="Assets\script\ray.cs" />
+    <Compile Include="Assets\script\show.cs" />
     <Compile Include="Assets\script\snipe_destroy.cs" />
     <Compile Include="Assets\script\zombie.cs" />
     <Compile Include="Assets\script\zombiespawn.cs" />
